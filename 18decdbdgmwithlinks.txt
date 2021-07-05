@@ -1,0 +1,464 @@
+Table signup {
+  id integer
+  name varchar
+  phone bigint
+  userrole integer
+  location location
+}
+
+Table Housing_Provider {
+id integer
+roleid integer
+name varchar
+location location
+Prop_listed integer
+Prop_rented integer
+Verif_status integer
+Listid integer
+Visit_manage boolean
+brokerage boolean
+rent_collection boolean
+Record boolean
+Provider_Rating integer
+Provider_Reviews varchar
+Bandhu_credits int
+}
+
+Table Guest {
+  id integer
+  name varchar
+  native_location location
+  Current_location location
+  Housing_location location
+  Group_type integer
+  group_size integer
+  Verif_status integer
+  room_reqd integer
+  group_verif_status integer
+  bed_reqd integer
+  minbudget integer
+  maxbudget integer
+  can_share boolean
+  diet_pref integer
+  Bandhu_credits int
+}
+
+
+Table Guest_group {
+id integer
+  Group_member_id integer
+  Group_Member_Age integer
+  Group_member_gender integer
+  Group_member_Phone bigint
+  Group_member_ver_status int
+}
+
+Table bandhu_champ {
+  id integer
+  name varchar
+  roleid integer
+  location location
+  Prop_listed integer
+  Prop_rented integer
+  Assistance boolean
+  rent_collection boolean
+  property_listing boolean
+  propid_verified integer
+  Propid_listed integer
+  Propid_visited integer
+  Propid_maintained integer
+  Champ_rating integer
+  Champ_review varchar
+  
+}
+
+table Property {
+  id integer
+  Property_lister_id int
+  Property_maintainer_id int
+  Property_collection_id int
+  Property_visit_management_id int
+  Housing_type int [ 
+  note: '
+  0= Building
+  1= flat
+  2= Workers_dorm_Hostel 
+  4= Sleeping_space   
+  5= slum_basti 
+     ' ]
+  Property_location location
+  Housing_status integer [ 
+     note: ' 0 = active
+     1= Prop_rented
+     2=unavailable']
+  
+  Floor int [
+  note:'
+  1=Terrace room
+  2= second Floor
+  3= fisrt Floor
+  4= room']
+  Hall boolean
+  living_in_hall boolean
+  Available_rooms int
+  Available_beds int
+  
+  
+  Toilet int [
+  note:'
+  0= public
+  1= common_share
+  2= private
+  ']
+  
+  Bathroom varchar [
+  note:'
+  0=public
+  1=common/share
+  2= private']
+  
+  Bathoom_facilities integer [
+  note:'
+  1=paid
+  0=unpaid']
+  
+  Kitchen int [
+  note: '
+  0= seperate_space
+  1= cook_inside_room 
+  2 = not_allowed
+  ']
+  
+  property_address varchar
+  
+  
+  Guest_prefernce integer [
+  note: '
+0= single_man  
+1= single_women  
+2= family  
+3= group_of_man 
+4= group_of_woman ']
+  
+  
+  no_of_tenants int //
+  upload_images image [
+  note: '
+  0= room1
+  1=room2
+  2= shared_toilet
+  3= public_bathroom
+  4=kitchen
+  ']
+  Rent int
+  rent_per_room int
+  Rent_per_person int
+  rent_per_bed int
+  rent_charge boolean [ 
+  note:'
+  0= per tenant 
+  1= per room']
+  Available_startdate datetime 
+  Available_enddate datetime
+  aadhar_reqd boolean
+  landmarks_id int
+}
+
+table Bandhu_credits {
+  Event_id int
+  Credit_val int
+  transaction_id int
+}
+
+table search_result {
+Housing_location location
+Property_id integer
+Housing_type integer
+Housing_status integer [note: 'available']
+Guest_Verif_status boolean
+}
+
+table nearest_landmarks {
+  id int
+  Landmark_type int [note: 'types of landmarks to be shortlisted']
+
+  Landmark_name varchar
+}
+
+table Property_management_status {
+  Guest_id int
+  Property_id int
+  Rent_status int  [ 
+  note:'
+  0= rent paid 
+  1= rent pending']
+  Due_date datetime
+  Amount_pending int
+  Rent_collector_id int
+  Complaint_id int
+  lister_id int
+Visit_manager_id int
+Verifier_id int
+Verification_duedate datetime
+Maintenance_Person_id int
+Inventory_Items varchar
+Inventory_item_status int
+Maintenance_duedate datetime
+Maintainence_item varchar
+Maintainence_iteem_status int
+}
+
+table complaints {
+  id int
+  Property_id int
+    Complaint_status integer [note: ' 1=complaint present, 2 = no complaint']
+complain_type int  [
+  note: '
+0= payment 
+1= behavior
+2= reachability
+3= other']
+Complain_detail varchar
+Complaint_date datetime
+Complaint_resolution_status int
+Complaint_attendant_id int
+  
+}
+
+
+Table Address { // HOMETOWN ADDRESS
+  id int
+  state_id int [default: NULL]
+  District_id int(10) [ NOT NULL]
+  Hometown varchar [default: NULL]
+} 
+
+Table location_input { 
+ id int
+ Current_location boolean
+ Another_location boolean
+ Select_location coordinates
+ suggested_areas location
+ 
+}
+    
+Table current_location_{
+id int
+Distance int
+Area varchar
+
+}
+
+table Available_Property_management {
+Property_id int
+lister_id int
+Visit_manager_id int
+Verifier_id int
+Verification_duedate datetime
+Maintenance_Person_id int
+Inventory_Items varchar
+Inventory_item_status int
+Maintenance_duedate datetime
+Maintainence_item varchar
+Maintainence_iteem_status int
+}
+
+table Feedback_Visitedproperty {
+  id int [pk]
+  Reviewer_id int
+  Property_id int
+  Feedback_questions varchar [
+  note:'
+  1= ventilation
+  2= overall_hygeine
+  3= watertaps
+  4= bed
+  5= refrigerator
+  6= toilet
+  7=bathroom
+  8= why did you choose this Apply_to_property
+  9= how was your experience serachimg for property on Bandhu
+  10= how was your experience while interacting with Host
+  11= Would you like to look for naother property']
+  feedback_overall int
+   ventilation int
+  overall_hygeine int
+  watertaps boolean
+  bed boolean
+  refrigerator boolean
+  toilet boolean
+  bathroom boolean
+  created_at timestamp
+}
+
+table transactions {
+  id int
+  Property_id int
+  Guest_id int
+  Housing_provider_id int [ note: 'whatever is not applicable becomes a null value']
+  Bandhu_champion_id int
+  amount int
+  transaction_type int
+}
+Table Bandhu_meetup_point {
+  id int
+  location location
+  radius int
+  service_area Area
+  landmark_id int
+}
+
+Table Request { 
+  Id int [pk]
+  Property_id int
+  responder_id int
+  response boolean
+  virtual_tour_access boolean
+  schedule_visit datetime
+  Visit_location coordinates
+  Nearest_bandhucheckpoits coordinates
+  schedule_onboarding datetime
+    }
+    
+    
+    
+    
+
+Table virtual_tour {
+   virtual_id int [pk]
+   property_id int
+   Room1 image
+   Room2 image
+   Room3 image
+   kitchen_area image
+   Bathing_area image
+   toilet_area image
+   
+     }
+     
+     
+
+Table Feedback_boarding {
+  id int
+  Reviewer_id int
+  Property_id int
+  Bandhuapp_rating int
+  Housing_providerrating int
+  Bandhu_championrating int
+  Overall_experience int
+  suggestions varchar
+  
+}
+
+Table checkin {
+  id int
+  user_id int
+  request_id int
+  Property_id int
+  Property_location location
+  time_checkin datetime
+  Time_reached timestamp
+}
+
+Ref: "signup"."userrole" < "Guest"."id"
+
+
+Ref: "signup"."location" < "Guest"."Current_location"
+
+
+Ref: "Guest"."group_verif_status" < "Guest_group"."Group_member_ver_status"
+
+Ref: "Guest"."Housing_location" < "Guest"."Current_location"
+
+Ref: "Guest"."Housing_location" < "Property"."Property_location"
+
+
+Ref: "Housing_Provider"."roleid" < "Property"."Property_lister_id"
+
+Ref: "bandhu_champ"."rent_collection" < "Property"."Rent"
+
+Ref: "Housing_Provider"."rent_collection" < "Property"."Rent"
+
+Ref: "Property_management_status"."Complaint_id" < "complaints"."id"
+
+Ref: "Bandhu_meetup_point"."id" < "Request"."Nearest_bandhucheckpoits"
+
+
+Ref: "Request"."responder_id" < "Housing_Provider"."id"
+
+
+
+
+Ref: "virtual_tour"."virtual_id" < "Request"."virtual_tour_access"
+
+Ref: "Property"."Property_location" < "Request"."Visit_location"
+
+Ref: "bandhu_champ"."id" < "Property_management_status"."Verifier_id"
+
+Ref: "Property"."id" < "transactions"."Property_id"
+
+Ref: "Property"."id" < "Feedback_boarding"."Property_id"
+
+Ref: "Property"."id" < "Feedback_Visitedproperty"."Property_id"
+
+Ref: "Property"."id" < "complaints"."Property_id"
+
+Ref: "Guest_group"."id" < "transactions"."Guest_id"
+
+Ref: "transactions"."id" < "Bandhu_credits"."transaction_id"
+
+Ref: "bandhu_champ"."id" < "transactions"."Bandhu_champion_id"
+
+Ref: "Housing_Provider"."id" < "transactions"."Housing_provider_id"
+
+Ref: "Property"."Property_location" < "search_result"."Housing_location"
+
+Ref: "Property"."id" < "search_result"."Property_id"
+
+Ref: "checkin"."request_id" < "Request"."Id"
+
+Ref: "Guest"."id" < "checkin"."user_id"
+
+Ref: "Property"."id" < "checkin"."Property_id"
+
+Ref: "nearest_landmarks"."id" < "Property"."landmarks_id"
+
+Ref: "Housing_Provider"."Visit_manage" < "Property"."Property_visit_management_id"
+
+
+
+Ref: "Guest"."id" < "Feedback_Visitedproperty"."Reviewer_id"
+
+Ref: "bandhu_champ"."id" < "Property"."Property_maintainer_id"
+
+Ref: "bandhu_champ"."id" < "Property_management_status"."Rent_collector_id"
+
+Ref: "Housing_Provider"."id" < "Property_management_status"."Rent_collector_id"
+
+Ref: "bandhu_champ"."id" < "Property_management_status"."Maintenance_Person_id"
+
+Ref: "Housing_Provider"."id" < "Property_management_status"."lister_id"
+
+Ref: "bandhu_champ"."id" < "Property_management_status"."lister_id"
+
+Ref: "Guest"."id" < "Property_management_status"."Guest_id"
+
+Ref: "Property"."id" < "Property_management_status"."Rent_status"
+
+Ref: "Guest"."id" < "Feedback_boarding"."Reviewer_id"
+
+Ref: "Property"."id" < "Property_management_status"."Property_id"
+
+Ref: "Housing_Provider"."id" < "Property_management_status"."Visit_manager_id"
+
+Ref: "bandhu_champ"."id" < "Property_management_status"."Visit_manager_id"
+
+Ref: "Bandhu_credits"."Event_id" < "Guest"."Bandhu_credits"
+
+Ref: "Bandhu_credits"."Event_id" < "Housing_Provider"."Bandhu_credits"
+
+Ref: "current_location_"."id" < "location_input"."Current_location"
+
+Ref: "Feedback_boarding"."Bandhu_championrating" < "bandhu_champ"."Champ_review"
+
+Ref: "Feedback_boarding"."Housing_providerrating" < "Housing_Provider"."Provider_Rating"
